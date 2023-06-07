@@ -72,7 +72,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <a className="hidden sm:block btn btn-ghost normal-case text-xl">
+        <a className="hidden sm:flex btn btn-ghost normal-case text-xl">
           Fun with Art & Craft
         </a>
       </div>
@@ -98,7 +98,7 @@ const Navbar = () => {
           >
             <div className="card-body">
               <span className="font-bold text-lg">0 Classes</span>
-              <span className="text-info">Subtotal: $00</span>
+              <span>Subtotal: $00</span>
 
               <div className="text-center">
                 <Link to="/dashboard/cart" className="link link-hover">
