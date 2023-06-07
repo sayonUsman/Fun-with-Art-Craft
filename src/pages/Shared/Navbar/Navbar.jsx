@@ -44,7 +44,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar">
+    <div className="container navbar fixed z-10">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -72,7 +72,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <a className="btn btn-ghost normal-case text-xl">
+        <a className="hidden sm:block btn btn-ghost normal-case text-xl">
           Fun with Art & Craft
         </a>
       </div>
@@ -97,7 +97,7 @@ const Navbar = () => {
             className="mt-3 card rounded-md card-compact dropdown-content w-52 bg-black bg-opacity-50 text-white"
           >
             <div className="card-body">
-              <span className="font-bold text-lg">0 Items</span>
+              <span className="font-bold text-lg">0 Classes</span>
               <span className="text-info">Subtotal: $00</span>
 
               <div className="text-center">
