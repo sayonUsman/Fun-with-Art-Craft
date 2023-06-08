@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../authProvider/AuthProvider";
 import { getAuth, updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { createNewUser, loginWithGoogle } = useContext(AuthContext);
@@ -19,16 +20,23 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (user) => {
+  const onSubmit = (newUser) => {
     setErrorMessage("");
 
-    createNewUser(user.email, user.password)
+    createNewUser(newUser.email, newUser.password)
       .then(() => {
         updateProfile(auth.currentUser, {
-          displayName: user.name,
-          photoURL: user.url,
+          displayName: newUser.name,
+          photoURL: newUser.url,
         })
           .then(() => {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "New user has been successfully created",
+              showConfirmButton: true,
+            });
+
             navigate("/");
           })
           .catch((error) => {
@@ -47,6 +55,13 @@ const SignUp = () => {
 
     loginWithGoogle()
       .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged in has been done successfully",
+          showConfirmButton: true,
+        });
+
         navigate("/");
       })
       .catch((error) => {

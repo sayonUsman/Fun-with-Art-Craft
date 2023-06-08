@@ -3,6 +3,7 @@ import { SiGoogleclassroom } from "react-icons/Si";
 import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../authProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logOut, loggedInUser } = useContext(AuthContext);
@@ -10,11 +11,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogOut = () => {
+  const handleLogOut = (event) => {
+    event.preventDefault();
     setErrorMessage("");
 
     logOut()
-      .than(() => {
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged out has been done successfully",
+          showConfirmButton: true,
+        });
+
         navigate("/login");
       })
       .catch((error) => {
@@ -181,7 +190,11 @@ const Navbar = () => {
             </li>
 
             <li>
-              <NavLink to="/login" className="btn-ghost link link-hover">
+              <NavLink
+                to="/login"
+                onClick={handleLogOut}
+                className="btn-ghost link link-hover"
+              >
                 Log Out
               </NavLink>
             </li>

@@ -4,6 +4,7 @@ import { IconContext } from "react-icons";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../authProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { loginWithEmailAndPassword, loginWithGoogle } =
@@ -25,6 +26,13 @@ const Login = () => {
 
     loginWithEmailAndPassword(user.email, user.password)
       .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged in has been done successfully",
+          showConfirmButton: true,
+        });
+
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -39,6 +47,13 @@ const Login = () => {
 
     loginWithGoogle()
       .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged in has been done successfully",
+          showConfirmButton: true,
+        });
+
         navigate(from, { replace: true });
       })
       .catch((error) => {
