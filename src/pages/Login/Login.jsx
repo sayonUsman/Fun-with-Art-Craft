@@ -1,9 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/Fc";
 import { IconContext } from "react-icons";
 import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../authProvider/AuthProvider";
 
 const Login = () => {
+  const { loginWithEmailAndPassword, loginWithGoogle } =
+    useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const [errorMessage, setErrorMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -11,9 +22,28 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (user) => {
+    loginWithEmailAndPassword(user.email, user.password)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+
     reset();
+  };
+
+  const handleGoogleLogin = () => {
+    setErrorMessage("");
+
+    loginWithGoogle()
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   };
 
   return (
@@ -83,7 +113,10 @@ const Login = () => {
 
             <IconContext.Provider value={{ size: "45px" }}>
               <div className="flex mx-auto mt-3">
-                <button className="btn btn-circle bg-white">
+                <button
+                  className="btn btn-circle bg-white"
+                  onClick={handleGoogleLogin}
+                >
                   <FcGoogle></FcGoogle>
                 </button>
               </div>
@@ -100,6 +133,16 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      {errorMessage && (
+        <div className="toast toast-end">
+          <div className="alert alert-error">
+            <div>
+              <span>{errorMessage}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
