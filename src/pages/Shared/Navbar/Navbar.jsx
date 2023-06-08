@@ -1,8 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SiGoogleclassroom } from "react-icons/Si";
 import { IconContext } from "react-icons";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../authProvider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut, loggedInUser } = useContext(AuthContext);
+  const userDetails = loggedInUser();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogOut = () => {
+    setErrorMessage("");
+
+    logOut()
+      .than(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
+
   const navbarContent = (
     <>
       <li>
@@ -35,11 +54,23 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink to="/login" className="link link-hover">
-          Login
-        </NavLink>
-      </li>
+      {user ? (
+        <li>
+          <NavLink
+            to="/login"
+            onClick={handleLogOut}
+            className="link link-hover"
+          >
+            Log Out
+          </NavLink>
+        </li>
+      ) : (
+        <li>
+          <NavLink to="/login" className="link link-hover">
+            Login
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -110,43 +141,63 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="dropdown dropdown-end mr-3 md:mr-4">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar online">
-          <div className="rounded-full">
-            <img
-              src={
-                "https://img.freepik.com/free-vector/flat-lay-arts-crafts-background_23-2149129572.jpg?w=1380&t=st=1686141729~exp=1686142329~hmac=3f6aaa7bae11a14081c76c5722df7cff1b8ec7a0e4cc3eb3fb98db22db5a3e04"
-              }
-            />
+      {user && (
+        <div className="dropdown dropdown-end mr-3 md:mr-4">
+          <label
+            tabIndex={0}
+            className="btn btn-ghost btn-circle avatar online"
+          >
+            <div className="rounded-full">
+              <img
+                src={
+                  userDetails[2]
+                    ? userDetails[2]
+                    : "https://img.freepik.com/free-vector/flat-lay-arts-crafts-background_23-2149129572.jpg?w=1380&t=st=1686141729~exp=1686142329~hmac=3f6aaa7bae11a14081c76c5722df7cff1b8ec7a0e4cc3eb3fb98db22db5a3e04"
+                }
+              />
+            </div>
+          </label>
+
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black bg-opacity-50 rounded-md w-52 text-white"
+          >
+            <li>
+              <NavLink
+                to="/dashboard"
+                className="justify-between btn-ghost link link-hover mb-1"
+              >
+                {userDetails[0] ? userDetails[0] : userDetails[1]}
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/settings"
+                className="btn-ghost link link-hover mb-1"
+              >
+                Settings
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/login" className="btn-ghost link link-hover">
+                Log Out
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="toast toast-end">
+          <div className="alert alert-error">
+            <div>
+              <span>{errorMessage}</span>
+            </div>
           </div>
-        </label>
-
-        <ul
-          tabIndex={0}
-          className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black bg-opacity-50 rounded-md w-52 text-white"
-        >
-          <li>
-            <NavLink
-              to="/dashboard"
-              className="justify-between btn-ghost link link-hover mb-1"
-            >
-              Profile
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/settings" className="btn-ghost link link-hover mb-1">
-              Settings
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/login" className="btn-ghost link link-hover">
-              Log Out
-            </NavLink>
-          </li>
-        </ul>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
