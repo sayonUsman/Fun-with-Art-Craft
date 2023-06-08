@@ -8,11 +8,9 @@ import { AuthContext } from "../../authProvider/AuthProvider";
 const Login = () => {
   const { loginWithEmailAndPassword, loginWithGoogle } =
     useContext(AuthContext);
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -23,6 +21,8 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (user) => {
+    setErrorMessage("");
+
     loginWithEmailAndPassword(user.email, user.password)
       .then(() => {
         navigate(from, { replace: true });
