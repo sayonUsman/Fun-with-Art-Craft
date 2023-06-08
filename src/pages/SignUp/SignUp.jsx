@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/Fc";
 import { IconContext } from "react-icons";
 import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../authProvider/AuthProvider";
+import { getAuth, updateProfile } from "firebase/auth";
 
 const SignUp = () => {
+  const { createNewUser, loginWithGoogle } = useContext(AuthContext);
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -11,9 +19,39 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (user) => {
+    setErrorMessage("");
+
+    createNewUser(user.email, user.password)
+      .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName: user.name,
+          photoURL: user.url,
+        })
+          .then(() => {
+            navigate("/");
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+
     reset();
+  };
+
+  const handleGoogleLogin = () => {
+    setErrorMessage("");
+
+    loginWithGoogle()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   };
 
   return (
@@ -138,7 +176,10 @@ const SignUp = () => {
 
             <IconContext.Provider value={{ size: "45px" }}>
               <div className="flex mx-auto mt-3">
-                <button className="btn btn-circle bg-white">
+                <button
+                  className="btn btn-circle bg-white"
+                  onClick={handleGoogleLogin}
+                >
                   <FcGoogle></FcGoogle>
                 </button>
               </div>
@@ -155,6 +196,16 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+
+      {errorMessage && (
+        <div className="toast toast-end">
+          <div className="alert alert-error">
+            <div>
+              <span>{errorMessage}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
