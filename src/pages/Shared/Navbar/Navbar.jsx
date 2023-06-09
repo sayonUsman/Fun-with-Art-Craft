@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SiGoogleclassroom } from "react-icons/Si";
 import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, logOut, loggedInUser } = useContext(AuthContext);
   const userDetails = loggedInUser();
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogOut = (event) => {
@@ -23,8 +22,6 @@ const Navbar = () => {
           title: "Logged out has been done successfully",
           showConfirmButton: true,
         });
-
-        navigate("/login");
       })
       .catch((error) => {
         setErrorMessage(error.message);
