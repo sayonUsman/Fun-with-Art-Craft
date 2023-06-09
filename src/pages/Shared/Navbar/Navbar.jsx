@@ -54,25 +54,27 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink
-          to="/dashboard"
-          className="mb-1 lg:mb-0 lg:mr-1 link link-hover"
-        >
-          Dashboard
-        </NavLink>
-      </li>
-
       {user ? (
-        <li>
-          <NavLink
-            to="/login"
-            onClick={handleLogOut}
-            className="link link-hover"
-          >
-            Log Out
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink
+              to="/dashboard"
+              className="mb-1 lg:mb-0 lg:mr-1 link link-hover"
+            >
+              Dashboard
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/login"
+              onClick={handleLogOut}
+              className="link link-hover"
+            >
+              Log Out
+            </NavLink>
+          </li>
+        </>
       ) : (
         <li>
           <NavLink to="/login" className="link link-hover">
