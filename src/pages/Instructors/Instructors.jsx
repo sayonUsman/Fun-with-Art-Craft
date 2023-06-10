@@ -33,7 +33,9 @@ const Instructors = () => {
 
                     <div>
                       <div className="font-bold">{details.instructorName}</div>
-                      <div className="text-sm opacity-50">United States</div>
+                      <div className="text-sm opacity-50">
+                        Fun with Art & Craft
+                      </div>
                     </div>
                   </div>
                 </td>
