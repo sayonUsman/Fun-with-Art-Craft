@@ -1,4 +1,4 @@
-const PopularCard = ({ details }) => {
+const PopularClassCard = ({ details }) => {
   return (
     <div className="card rounded sm:card-side shadow-md shadow-zinc-800 mx-2">
       <figure>
@@ -24,4 +24,4 @@ const PopularCard = ({ details }) => {
   );
 };
 
-export default PopularCard;
+export default PopularClassCard;
