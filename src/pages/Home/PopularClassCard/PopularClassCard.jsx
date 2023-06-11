@@ -13,7 +13,7 @@ const PopularClassCard = ({ details }) => {
         <h2 className="card-title">{details.className}</h2>
         <p>
           Available seats: {details.availableSeats} <br />
-          Course Price: {details.price}
+          Course Price: ${details.price}
         </p>
 
         <div className="card-actions justify-end">
