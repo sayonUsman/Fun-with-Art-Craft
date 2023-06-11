@@ -5,7 +5,7 @@ const Instructors = () => {
   const [allDetails] = useAllDetails();
 
   return (
-    <div className="container mx-auto min-h-screen">
+    <div className="min-h-screen mb-24">
       <div className="overflow-x-auto">
         <table className="table mt-24">
           <thead>
