@@ -51,6 +51,74 @@ const Home = () => {
       </div>
 
       <SectionTitle title={"View Tutorial on Youtube"}></SectionTitle>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-20">
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/QtCA_dPjyOI"
+          title="How to Draw Beautiful Moonlight Over the Lake Scenery | Oil Pastels Scenery Drawing"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/kBih54nSQyc"
+          title="Moonlight night scenery drawing painting | Night seascape painting"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/vYpoRzumKSc"
+          title="Como pintar paisagem de chuva com caminho de árvores / acrylic painting on canvas"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/2RKsPUao3dk"
+          title="Mountais and waterfalls drawing and painting | Beautiful Nature painting"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/Ea7g-SrluGI"
+          title="Beautiful Indian Village Scenery Drawing|Easy Indian Village Scenery With Watercolor|Scenery Drawing"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+
+        <iframe
+          width="475"
+          height="245"
+          src="https://www.youtube.com/embed/9pzN-Q0OLFI"
+          title="Oil Painting - Full Moon Landscape / Easy Art / Drawing Lessons / Satisfying Relaxing / Живопись."
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          autoPlay
+          className="flex mx-auto rounded-md"
+        ></iframe>
+      </div>
     </div>
   );
 };
