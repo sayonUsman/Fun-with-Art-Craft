@@ -2,6 +2,7 @@ import Banner from "./Banner/Banner";
 import { useEffect, useState } from "react";
 import PopularClassCard from "./PopularClassCard/PopularClassCard";
 import PopularInstructorCard from "./PopularInstructorCard/PopularInstructorCard";
+import SectionTitle from "../../components/SectionTitle";
 
 const Home = () => {
   const [popularClasses, setPopularClasses] = useState([]);
@@ -27,6 +28,8 @@ const Home = () => {
     <div>
       <Banner></Banner>
 
+      <SectionTitle title={"Our Popular Classes"}></SectionTitle>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-9">
         {popularClasses.slice(0, 6).map((details) => (
           <PopularClassCard
@@ -36,6 +39,8 @@ const Home = () => {
         ))}
       </div>
 
+      <SectionTitle title={"Our Popular Instructors"}></SectionTitle>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 sm:gap-16 lg:gap-20">
         {popularInstructors.slice(0, 6).map((details) => (
           <PopularInstructorCard
@@ -44,6 +49,8 @@ const Home = () => {
           ></PopularInstructorCard>
         ))}
       </div>
+
+      <SectionTitle title={"View Tutorial on Youtube"}></SectionTitle>
     </div>
   );
 };
