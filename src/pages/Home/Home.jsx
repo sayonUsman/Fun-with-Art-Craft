@@ -91,6 +91,7 @@ const Home = () => {
           height="245"
           src="https://www.youtube.com/embed/2RKsPUao3dk"
           title="Mountais and waterfalls drawing and painting | Beautiful Nature painting"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           autoPlay
           className="flex mx-auto rounded-md"
