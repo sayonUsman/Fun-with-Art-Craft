@@ -36,7 +36,7 @@ const Home = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2 sm:gap-16 lg:gap-20">
         {popularInstructors.slice(0, 6).map((details) => (
           <PopularInstructorCard
             key={details._id}

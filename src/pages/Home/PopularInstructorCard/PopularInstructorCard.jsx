@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 const PopularInstructorCard = ({ details }) => {
   return (
     <div className="flex mx-auto">
-      <div className="flex flex-col sm:flex-row justify-center items-center h-96">
+      <div className="flex flex-col sm:flex-row justify-center items-center card">
         <figure>
           <img
             src={details.instructorImage}
             alt="Class's Image"
-            className="w-72 h-72 rounded-full mt-24 sm:mt-0"
+            className="w-56 h-56 rounded-full mt-24 sm:mt-0"
           />
         </figure>
 
