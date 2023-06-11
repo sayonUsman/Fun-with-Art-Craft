@@ -23,6 +23,11 @@ const SignUp = () => {
   const onSubmit = (newUser) => {
     setErrorMessage("");
 
+    if (newUser.password !== newUser.confirm_pass) {
+      setErrorMessage("Your password did not match with the confirm password");
+      return;
+    }
+
     createNewUser(newUser.email, newUser.password)
       .then(() => {
         updateProfile(auth.currentUser, {
@@ -125,12 +130,29 @@ const SignUp = () => {
                     type="password"
                     placeholder="password"
                     className="input input-bordered"
-                    {...register("password", { required: true })}
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      pattern: /(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+                    })}
                   />
 
-                  {errors.password && (
+                  {errors.password?.type === "required" && (
                     <span className="text-red-500 pt-1 pl-1">
                       Password is required.
+                    </span>
+                  )}
+
+                  {errors.password?.type === "minLength" && (
+                    <span className="text-red-500 pt-1 pl-1">
+                      Password must be six characters.
+                    </span>
+                  )}
+
+                  {errors.password?.type === "pattern" && (
+                    <span className="text-red-500 pt-1 pl-1">
+                      Password must have at least one capital letter and one
+                      special character.
                     </span>
                   )}
                 </div>
