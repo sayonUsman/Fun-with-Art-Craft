@@ -7,11 +7,9 @@ const Dashboard = () => {
   let confirmedClassesDetails = [];
   let idList = [];
 
-  if (confirmedClasses) {
-    confirmedClasses.forEach((confirmedClass) => {
-      idList = [...idList, confirmedClass.classId];
-    });
-  }
+  confirmedClasses?.forEach((confirmedClass) => {
+    idList = [...idList, confirmedClass.classId];
+  });
 
   idList.forEach((id) => {
     const confirmedClassDetails = allDetails.find(
@@ -43,12 +41,12 @@ const Dashboard = () => {
           </thead>
 
           {confirmedClassesDetails.map((details) => (
-            <tbody key={details._id}>
-              <tr className="hover">
+            <tbody key={details?._id}>
+              <tr className="hover text-center">
                 <th>#</th>
-                <td>{details.className}</td>
-                <td>{details.availableSeats}</td>
-                <td>{`$${details.price}.00`}</td>
+                <td>{details?.className}</td>
+                <td>{details?.availableSeats}</td>
+                <td>{`$${details?.price}.00`}</td>
                 <td>Pay Now</td>
                 <td>Delete</td>
               </tr>
