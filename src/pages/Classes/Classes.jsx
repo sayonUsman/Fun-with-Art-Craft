@@ -3,12 +3,14 @@ import { AuthContext } from "../../authProvider/AuthProvider";
 import useAllDetails from "../../hooks/useAllDetails";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useConfirmedClasses from "../../hooks/useConfirmedClasses";
 
 const Classes = () => {
   const [allDetails] = useAllDetails();
   const { user, loggedInUser } = useContext(AuthContext);
   const userDetails = loggedInUser();
   const navigate = useNavigate();
+  const [, refetch] = useConfirmedClasses();
 
   const manageEnroll = (event, classId) => {
     if (event.target.checked) {
@@ -27,6 +29,8 @@ const Classes = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {
+              refetch(); // To add the class in the navbar cart
+
               Swal.fire({
                 title: "Your selected class has been saved successfully",
                 text: "Want to pay now?",
@@ -78,6 +82,7 @@ const Classes = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.acknowledged) {
+                refetch(); // To remove the class from the navbar cart
                 event.target.checked = false;
               }
             });

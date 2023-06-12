@@ -1,14 +1,23 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { SiGoogleclassroom } from "react-icons/Si";
 import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../authProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useConfirmedClasses from "../../../hooks/useConfirmedClasses";
 
 const Navbar = () => {
   const { user, logOut, loggedInUser } = useContext(AuthContext);
   const userDetails = loggedInUser();
   const [errorMessage, setErrorMessage] = useState("");
+  const [confirmedClasses] = useConfirmedClasses();
+  let length = 0;
+
+  if (confirmedClasses) {
+    length = confirmedClasses.length;
+  } else {
+    length = 0;
+  }
 
   const handleLogOut = (event) => {
     event.preventDefault();
@@ -120,33 +129,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navbarContent}</ul>
       </div>
 
-      <div className="navbar-end">
-        <div className="dropdown dropdown-end mr-3 md:mr-4">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <IconContext.Provider value={{ size: "25px" }}>
-                <SiGoogleclassroom></SiGoogleclassroom>
-              </IconContext.Provider>
-              <span className="badge badge-sm indicator-item">0</span>
-            </div>
-          </label>
-
-          <div
-            tabIndex={0}
-            className="mt-3 card rounded-md card-compact dropdown-content w-52 bg-black bg-opacity-50 text-white"
-          >
-            <div className="card-body">
-              <span className="font-bold text-lg">0 Classes</span>
-              <span>Subtotal: $00</span>
-
-              <div className="text-center">
-                <Link to="/dashboard/cart" className="link link-hover">
-                  View cart
-                </Link>
-              </div>
-            </div>
+      <div className="navbar-end mr-3 md:mr-4">
+        <label className="btn btn-ghost btn-circle">
+          <div className="indicator">
+            <IconContext.Provider value={{ size: "25px" }}>
+              <SiGoogleclassroom></SiGoogleclassroom>
+            </IconContext.Provider>
+            <span className="badge badge-sm indicator-item">{length}</span>
           </div>
-        </div>
+        </label>
       </div>
 
       {user && (
