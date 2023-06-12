@@ -1,4 +1,29 @@
+import useAllDetails from "../../hooks/useAllDetails";
+import useConfirmedClasses from "../../hooks/useConfirmedClasses";
+
 const Dashboard = () => {
+  const [confirmedClasses] = useConfirmedClasses();
+  const [allDetails] = useAllDetails();
+  let confirmedClassesDetails = [];
+  let idList = [];
+
+  if (confirmedClasses) {
+    confirmedClasses.forEach((confirmedClass) => {
+      idList = [...idList, confirmedClass.classId];
+    });
+  }
+
+  idList.forEach((id) => {
+    const confirmedClassDetails = allDetails.find(
+      (details) => details._id === id
+    );
+
+    confirmedClassesDetails = [
+      ...confirmedClassesDetails,
+      confirmedClassDetails,
+    ];
+  });
+
   return (
     <div className="mt-20 md:mt-4 mb-7">
       <p className="text-4xl xl:text-5xl text-center font-bold">
@@ -17,16 +42,18 @@ const Dashboard = () => {
             </tr>
           </thead>
 
-          <tbody>
-            <tr className="hover">
-              <th>1</th>
-              <td>Knitting</td>
-              <td>12</td>
-              <td>$225.00</td>
-              <td>Pay Now</td>
-              <td>Delete</td>
-            </tr>
-          </tbody>
+          {confirmedClassesDetails.map((details) => (
+            <tbody key={details._id}>
+              <tr className="hover">
+                <th>#</th>
+                <td>{details.className}</td>
+                <td>{details.availableSeats}</td>
+                <td>{`$${details.price}.00`}</td>
+                <td>Pay Now</td>
+                <td>Delete</td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
 
