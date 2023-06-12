@@ -1,7 +1,92 @@
+import { useContext } from "react";
+import { AuthContext } from "../../authProvider/AuthProvider";
 import useAllDetails from "../../hooks/useAllDetails";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
   const [allDetails] = useAllDetails();
+  const { user, loggedInUser } = useContext(AuthContext);
+  const userDetails = loggedInUser();
+  const navigate = useNavigate();
+
+  const manageEnroll = (event, classId) => {
+    if (event.target.checked) {
+      if (user) {
+        const bookedClass = {
+          studentName: userDetails[0],
+          studentEmail: userDetails[1],
+          classId: classId,
+        };
+
+        fetch("http://localhost:5000/confirmedClasses", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookedClass),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged) {
+              Swal.fire({
+                title: "Your selected class has been saved successfully",
+                text: "Want to pay now?",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/dashboard");
+                }
+              });
+            }
+          });
+      } else {
+        Swal.fire({
+          title: "Oops! You are not login user!!!",
+          text: "To ensure the enrollment please login or sign up",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ok",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/login");
+          } else {
+            event.target.checked = false;
+          }
+        });
+      }
+    }
+
+    if (!event.target.checked) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to unselect the class!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`http://localhost:5000/confirmedClasses/${classId}`, {
+            method: "DELETE",
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.acknowledged) {
+                event.target.checked = false;
+              }
+            });
+        } else {
+          event.target.checked = true;
+        }
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen mb-24">
@@ -57,6 +142,7 @@ const Classes = () => {
                   <label>
                     <input
                       type="checkbox"
+                      onChange={(event) => manageEnroll(event, details._id)}
                       className="checkbox"
                       disabled={details.availableSeats == 0 ? true : false}
                     />
