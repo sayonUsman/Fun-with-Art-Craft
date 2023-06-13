@@ -32,7 +32,7 @@ const Classes = () => {
               refetch(); // To add the class in the navbar cart
 
               Swal.fire({
-                title: "Your selected class has been saved successfully",
+                title: "Your selected class has been saved successfully.",
                 text: "Want to pay now?",
                 icon: "success",
                 showCancelButton: true,
@@ -49,7 +49,7 @@ const Classes = () => {
       } else {
         Swal.fire({
           title: "Oops! You are not login user!!!",
-          text: "To ensure the enrollment please login or sign up",
+          text: "To ensure the enrollment please login or sign up.",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -68,7 +68,7 @@ const Classes = () => {
     if (!event.target.checked) {
       Swal.fire({
         title: "Are you sure?",
-        text: "You want to unselect the class!",
+        text: "Do you want to unselect the class?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

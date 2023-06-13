@@ -38,7 +38,7 @@ const SignUp = () => {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: "New user has been successfully created",
+              title: "New user has been successfully created.",
               showConfirmButton: true,
             });
 
@@ -63,7 +63,7 @@ const SignUp = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Logged in has been done successfully",
+          title: "Logged in has been done successfully.",
           showConfirmButton: true,
         });
 
