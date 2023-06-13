@@ -34,9 +34,12 @@ const Dashboard = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/confirmedClasses/${classId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://fun-with-art-craft.vercel.app/confirmedClasses/${classId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {

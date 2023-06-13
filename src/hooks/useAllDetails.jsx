@@ -5,7 +5,7 @@ const useAllDetails = () => {
   const [isloading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all_details")
+    fetch("https://fun-with-art-craft.vercel.app/all_details")
       .then((res) => res.json())
       .then((data) => {
         setAllDetails(data);

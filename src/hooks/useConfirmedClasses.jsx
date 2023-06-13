@@ -12,7 +12,7 @@ const useConfirmedClasses = () => {
 
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/confirmedClasses?email=${email}`
+        `https://fun-with-art-craft.vercel.app/confirmedClasses?email=${email}`
       );
       return res.json();
     },

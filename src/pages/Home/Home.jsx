@@ -9,7 +9,7 @@ const Home = () => {
   const [popularInstructors, setPopularInstructors] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/popularClasses")
+    fetch("https://fun-with-art-craft.vercel.app/popularClasses")
       .then((res) => res.json())
       .then((data) => {
         setPopularClasses(data);
@@ -17,7 +17,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/popularInstructors")
+    fetch("https://fun-with-art-craft.vercel.app/popularInstructors")
       .then((res) => res.json())
       .then((data) => {
         setPopularInstructors(data);
