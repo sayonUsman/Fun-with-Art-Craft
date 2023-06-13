@@ -33,17 +33,22 @@ const Secondary = () => {
 
   const navbarContent = (
     <>
-      <ul className="menu p-4 h-full bg-white text-base-content">
-        <div className="avatar mt-12">
-          <div className="w-48 rounded-full ring ring-black ring-offset-white ring-offset-4">
-            <img src={userDetails[2]} alt="User Profile Image" />
+      <ul className="menu p-4 w-80 min-h-screen border-x-2 bg-white text-base-content">
+        <li>
+          <div className="avatar mt-9 md:mt-12">
+            <div className="w-24 md:w-48 rounded-full ring ring-black ring-offset-white ring-offset-4">
+              <img src={userDetails[2]} alt="User Profile Image" />
+            </div>
           </div>
-        </div>
+        </li>
 
-        <li className="mt-7 text-3xl font-bold">{userDetails[0]}</li>
-        <li className="text-md font-semibold pt-1">{userDetails[1]}</li>
+        <li className="mt-7 text-xl md:text-3xl font-bold pl-2">
+          {userDetails[0]}
+        </li>
 
-        <li className="mt-20 mb-1 link link-hover">
+        <li className="text-md font-semibold pt-1 pl-2">{userDetails[1]}</li>
+
+        <li className="mt-16 mb-1 link link-hover">
           <NavLink to="/">
             <HiHome></HiHome> Home
           </NavLink>
@@ -135,10 +140,7 @@ const Secondary = () => {
 
           <div className="drawer-side mr-7">
             <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-
-            <ul className="menu p-4 w-80 h-full border-x-2 text-base-content">
-              {navbarContent}
-            </ul>
+            {navbarContent}
           </div>
         </div>
       </div>
