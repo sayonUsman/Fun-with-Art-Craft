@@ -104,16 +104,9 @@ const Dashboard = () => {
               <th></th>
             </tr>
           </thead>
-
-          <tbody>
-            <tr className="hover">
-              <th>1</th>
-              <td>Mosaic Madness</td>
-              <td>David Smith</td>
-              <td>See Tutorial</td>
-            </tr>
-          </tbody>
         </table>
+
+        <p className="text-center p-1">You have no enrolled classes</p>
       </div>
     </div>
   );
