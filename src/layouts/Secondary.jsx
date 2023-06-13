@@ -3,6 +3,8 @@ import { CgProfile } from "react-icons/Cg";
 import { GiWallet } from "react-icons/Gi";
 import { HiHome } from "react-icons/Hi";
 import { RiLogoutBoxRFill } from "react-icons/Ri";
+import { BsFillPeopleFill } from "react-icons/Bs";
+import { SiGoogleclassroom } from "react-icons/Si";
 import { useContext, useState } from "react";
 import { AuthContext } from "../authProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -32,12 +34,30 @@ const Secondary = () => {
   const navbarContent = (
     <>
       <ul className="menu p-4 h-full bg-white text-base-content">
-        <li className="mt-12 text-3xl font-bold">{userDetails[0]}</li>
+        <div className="avatar mt-12">
+          <div className="w-48 rounded-full ring ring-black ring-offset-white ring-offset-4">
+            <img src={userDetails[2]} alt="User Profile Image" />
+          </div>
+        </div>
+
+        <li className="mt-7 text-3xl font-bold">{userDetails[0]}</li>
         <li className="text-md font-semibold pt-1">{userDetails[1]}</li>
 
         <li className="mt-20 mb-1 link link-hover">
           <NavLink to="/">
             <HiHome></HiHome> Home
+          </NavLink>
+        </li>
+
+        <li className="mb-1 link link-hover">
+          <NavLink to="/instructors">
+            <BsFillPeopleFill></BsFillPeopleFill> Instructors
+          </NavLink>
+        </li>
+
+        <li className="mb-1 link link-hover">
+          <NavLink to="/classes">
+            <SiGoogleclassroom></SiGoogleclassroom> Classes
           </NavLink>
         </li>
 
