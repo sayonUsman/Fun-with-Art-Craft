@@ -38,8 +38,10 @@ const SignUp = () => {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: "New user has been successfully created.",
+              title: "Welcome.",
+              text: "Your account has been created successfully.",
               showConfirmButton: true,
+              timer: 2000,
             });
 
             navigate("/");
@@ -63,8 +65,10 @@ const SignUp = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Logged in has been done successfully.",
+          title: "Welcome.",
+          text: "Logged in has been done successfully.",
           showConfirmButton: true,
+          timer: 2000,
         });
 
         navigate("/");

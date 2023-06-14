@@ -29,8 +29,10 @@ const Login = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Logged in has been done successfully.",
+          title: "Welcome Back.",
+          text: "Logged in has been done successfully.",
           showConfirmButton: true,
+          timer: 2000,
         });
 
         navigate(from, { replace: true });
@@ -50,8 +52,10 @@ const Login = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Logged in has been done successfully.",
+          title: "Welcome Back.",
+          text: "Logged in has been done successfully.",
           showConfirmButton: true,
+          timer: 2000,
         });
 
         navigate(from, { replace: true });

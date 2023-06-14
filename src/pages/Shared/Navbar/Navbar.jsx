@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SiGoogleclassroom } from "react-icons/Si";
 import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const userDetails = loggedInUser();
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmedClasses] = useConfirmedClasses();
+  const navigate = useNavigate();
   let length = 0;
 
   if (confirmedClasses) {
@@ -28,9 +29,11 @@ const Navbar = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Logged out has been done successfully.",
+          title: "Done.",
+          text: "Logged out has been done successfully.",
           showConfirmButton: true,
         });
+        navigate("/login");
       })
       .catch((error) => {
         setErrorMessage(error.message);
