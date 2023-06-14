@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col">
-        <div className="card rounded-md flex-shrink-0 w-96 shadow-md shadow-zinc-800 mt-20 xl:mt-0">
+        <div className="card rounded-md flex-shrink-0 w-96 shadow-md shadow-zinc-800 mt-12 md:mt-20 xl:mt-0">
           <div className="card-body">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control">
