@@ -4,6 +4,7 @@ import { AuthContext } from "../../../authProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import moment from "moment/moment";
+import useConfirmedClasses from "../../../hooks/useConfirmedClasses";
 
 const CheckoutForm = ({ confirmedClassesDetails, price }) => {
   const stripe = useStripe();
@@ -14,6 +15,7 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
+  const [, refetch] = useConfirmedClasses();
 
   useEffect(() => {
     if (price > 0) {
@@ -91,7 +93,18 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.acknowledged) {
-            // refetch();
+            fetch(
+              `http://localhost:5000/confirmedClasses?email=${userDetails[1]}`,
+              {
+                method: "DELETE",
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.acknowledged) {
+                  refetch(); // To remove all confirmed classes from UI
+                }
+              });
 
             Swal.fire({
               title: "Payment Confirmed.",
