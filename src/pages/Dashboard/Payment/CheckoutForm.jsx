@@ -19,7 +19,7 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
 
   useEffect(() => {
     if (price > 0) {
-      fetch("http://localhost:5000/create-payment-intent", {
+      fetch("https://fun-with-art-craft.vercel.app/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price }),
@@ -85,7 +85,7 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
         ),
       };
 
-      fetch("http://localhost:5000/payment-details", {
+      fetch("https://fun-with-art-craft.vercel.app/payment-details", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(paymentDetails),
@@ -100,7 +100,7 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
               ),
             };
 
-            fetch("http://localhost:5000/enrollmentClasses", {
+            fetch("https://fun-with-art-craft.vercel.app/enrollmentClasses", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(enrollmentClassesDetails),
@@ -109,7 +109,7 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
               .then((data) => {
                 if (data.acknowledged) {
                   fetch(
-                    `http://localhost:5000/confirmedClasses?email=${userDetails[1]}`,
+                    `https://fun-with-art-craft.vercel.app/confirmedClasses?email=${userDetails[1]}`,
                     {
                       method: "DELETE",
                     }

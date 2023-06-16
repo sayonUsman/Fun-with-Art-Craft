@@ -12,7 +12,7 @@ const useEnrollmentClasses = () => {
 
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/enrollmentClasses?email=${email}`
+        `https://fun-with-art-craft.vercel.app/enrollmentClasses?email=${email}`
       );
       return res.json();
     },
