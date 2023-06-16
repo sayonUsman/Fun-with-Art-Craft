@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useConfirmedClasses from "../../hooks/useConfirmedClasses";
 import useConfirmedClassesDetails from "../../hooks/useConfirmedClassesDetails";
+import useEnrollmentClassesDetails from "../../hooks/useEnrollmentClassesDetails";
 
 const Dashboard = () => {
   const [, refetch] = useConfirmedClasses();
   const confirmedClassesDetails = useConfirmedClassesDetails();
+  const enrollmentClassDetails = useEnrollmentClassesDetails();
   const totalPrice = confirmedClassesDetails.reduce(
     (sum, classDetails) => sum + classDetails?.price,
     0
@@ -63,7 +65,7 @@ const Dashboard = () => {
 
           <tbody>
             {confirmedClassesDetails.map((details) => (
-              <tr key={details?._id} className="text-center">
+              <tr key={details?._id}>
                 <th>#</th>
                 <td>{details?.className}</td>
                 <td>{details?.availableSeats}</td>
@@ -79,7 +81,7 @@ const Dashboard = () => {
               </tr>
             ))}
 
-            <tr className="text-center">
+            <tr>
               <th></th>
               <td></td>
               <td>Total</td>
@@ -107,9 +109,16 @@ const Dashboard = () => {
               <th></th>
             </tr>
           </thead>
-        </table>
 
-        <p className="text-center p-1">You have no enrolled classes</p>
+          {enrollmentClassDetails.map((details) => (
+            <tr key={details?._id}>
+              <th></th>
+              <td>{details?.className}</td>
+              <td>{details?.instructorName}</td>
+              <td className="link link-hover link-primary">View Tutorial</td>
+            </tr>
+          ))}
+        </table>
       </div>
     </div>
   );

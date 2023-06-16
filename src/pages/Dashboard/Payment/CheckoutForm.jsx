@@ -94,14 +94,9 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
         .then((data) => {
           if (data.acknowledged) {
             const enrollmentClassesDetails = {
+              studentEmail: userDetails[1],
               classesId: confirmedClassesDetails.map(
                 (classDetails) => classDetails._id
-              ),
-              classes: confirmedClassesDetails.map(
-                (classDetails) => classDetails.className
-              ),
-              instructors: confirmedClassesDetails.map(
-                (classDetails) => classDetails.instructorName
               ),
             };
 
