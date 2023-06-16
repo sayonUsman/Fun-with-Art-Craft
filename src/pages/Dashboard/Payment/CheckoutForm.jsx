@@ -93,16 +93,38 @@ const CheckoutForm = ({ confirmedClassesDetails, price }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.acknowledged) {
-            fetch(
-              `http://localhost:5000/confirmedClasses?email=${userDetails[1]}`,
-              {
-                method: "DELETE",
-              }
-            )
+            const enrollmentClassesDetails = {
+              classesId: confirmedClassesDetails.map(
+                (classDetails) => classDetails._id
+              ),
+              classes: confirmedClassesDetails.map(
+                (classDetails) => classDetails.className
+              ),
+              instructors: confirmedClassesDetails.map(
+                (classDetails) => classDetails.instructorName
+              ),
+            };
+
+            fetch("http://localhost:5000/enrollmentClasses", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(enrollmentClassesDetails),
+            })
               .then((res) => res.json())
               .then((data) => {
                 if (data.acknowledged) {
-                  refetch(); // To remove all confirmed classes from UI
+                  fetch(
+                    `http://localhost:5000/confirmedClasses?email=${userDetails[1]}`,
+                    {
+                      method: "DELETE",
+                    }
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      if (data.acknowledged) {
+                        refetch(); // To remove all confirmed classes from UI
+                      }
+                    });
                 }
               });
 
