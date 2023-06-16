@@ -5,6 +5,7 @@ import { HiHome } from "react-icons/Hi";
 import { RiLogoutBoxRFill } from "react-icons/Ri";
 import { BsFillPeopleFill } from "react-icons/Bs";
 import { SiGoogleclassroom } from "react-icons/Si";
+import { MdSpaceDashboard } from "react-icons/Md";
 import { useContext, useState } from "react";
 import { AuthContext } from "../authProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -50,6 +51,12 @@ const Secondary = () => {
         <li className="text-md font-semibold pt-1 pl-2">{userDetails[1]}</li>
 
         <li className="mt-16 mb-1 link link-hover">
+          <NavLink to="/dashboard">
+            <MdSpaceDashboard></MdSpaceDashboard> Dashboard
+          </NavLink>
+        </li>
+
+        <li className="mb-1 link link-hover">
           <NavLink to="/">
             <HiHome></HiHome> Home
           </NavLink>

@@ -1,27 +1,15 @@
-import useAllDetails from "../../hooks/useAllDetails";
-import useConfirmedClasses from "../../hooks/useConfirmedClasses";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useConfirmedClasses from "../../hooks/useConfirmedClasses";
+import useConfirmedClassesDetails from "../../hooks/useConfirmedClassesDetails";
 
 const Dashboard = () => {
-  const [confirmedClasses, refetch] = useConfirmedClasses();
-  const [allDetails] = useAllDetails();
-  let confirmedClassesDetails = [];
-  let idList = [];
-
-  confirmedClasses?.forEach((confirmedClass) => {
-    idList = [...idList, confirmedClass.classId];
-  });
-
-  idList.forEach((id) => {
-    const confirmedClassDetails = allDetails.find(
-      (details) => details._id === id
-    );
-
-    confirmedClassesDetails = [
-      ...confirmedClassesDetails,
-      confirmedClassDetails,
-    ];
-  });
+  const [, refetch] = useConfirmedClasses();
+  const confirmedClassesDetails = useConfirmedClassesDetails();
+  const totalPrice = confirmedClassesDetails.reduce(
+    (sum, classDetails) => sum + classDetails?.price,
+    0
+  );
 
   const handleDelete = (classId) => {
     Swal.fire({
@@ -73,16 +61,13 @@ const Dashboard = () => {
             </tr>
           </thead>
 
-          {confirmedClassesDetails.map((details) => (
-            <tbody key={details?._id}>
-              <tr className="text-center">
+          <tbody>
+            {confirmedClassesDetails.map((details) => (
+              <tr key={details?._id} className="text-center">
                 <th>#</th>
                 <td>{details?.className}</td>
                 <td>{details?.availableSeats}</td>
-                <td>{`$${details?.price}.00`}</td>
-                <td>
-                  <button className="btn btn-link">Pay Now</button>
-                </td>
+                <td>{`$ ${details?.price}.00`}</td>
                 <td>
                   <button
                     className="btn btn-xs bg-red-400"
@@ -92,9 +77,24 @@ const Dashboard = () => {
                   </button>
                 </td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+
+            <tr className="text-center">
+              <th></th>
+              <td></td>
+              <td>Total</td>
+              <td>{`$ ${totalPrice}.00`}</td>
+            </tr>
+          </tbody>
         </table>
+
+        <div className="flex mt-5">
+          <div className="flex mx-auto">
+            <Link to="payments" className="btn btn-link">
+              Pay Now
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="overflow-x-auto mt-16">

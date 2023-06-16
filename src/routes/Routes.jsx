@@ -8,6 +8,7 @@ import Instructors from "../pages/Instructors/Instructors";
 import Classes from "../pages/Classes/Classes";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Secondary from "../layouts/Secondary";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Secondary></Secondary>,
-    children: [{ path: "/dashboard", element: <Dashboard></Dashboard> }],
+    children: [
+      { path: "/dashboard", element: <Dashboard></Dashboard> },
+      { path: "payments", element: <Payment></Payment> },
+    ],
   },
   { path: "*", element: <Error_404></Error_404> },
 ]);
