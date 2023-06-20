@@ -10,7 +10,9 @@ const Payments_History = () => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/payments-history?email=${email}`)
+      fetch(
+        `https://fun-with-art-craft.vercel.app/payments-history?email=${email}`
+      )
         .then((res) => res.json())
         .then((data) => setPaymentsDetails(data));
     }
