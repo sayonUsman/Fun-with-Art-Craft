@@ -81,8 +81,8 @@ const Secondary = () => {
         </li>
 
         <li className="mb-1 link link-hover">
-          <NavLink to="payment-history">
-            <GiWallet></GiWallet> Payment History
+          <NavLink to="payments-history">
+            <GiWallet></GiWallet> Payments History
           </NavLink>
         </li>
 
