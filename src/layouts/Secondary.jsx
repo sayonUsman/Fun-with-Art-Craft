@@ -35,7 +35,7 @@ const Secondary = () => {
 
   const navbarContent = (
     <>
-      <ul className="menu p-4 w-80 min-h-screen border-x-2 bg-white text-base-content">
+      <ul className="menu p-4 w-80 min-h-screen border-x-2">
         <li>
           <div className="avatar mt-9 md:mt-12">
             <div className="w-24 md:w-48 rounded-full ring ring-black ring-offset-white ring-offset-4">
