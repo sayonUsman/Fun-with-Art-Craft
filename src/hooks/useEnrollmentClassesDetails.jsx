@@ -5,26 +5,31 @@ const useEnrollmentClassesDetails = () => {
   const [enrollmentClasses] = useEnrollmentClasses();
   const [allDetails] = useAllDetails();
   let enrollmentClassesDetails = [];
+  let errorMessage = "";
   let idList = [];
 
-  enrollmentClasses?.forEach((enrollmentClass) => {
-    enrollmentClass.classesId.forEach((id) => {
-      idList = [...idList, id];
+  if (!enrollmentClasses?.error) {
+    enrollmentClasses?.forEach((enrollmentClass) => {
+      enrollmentClass.classesId.forEach((id) => {
+        idList = [...idList, id];
+      });
     });
-  });
 
-  idList.forEach((id) => {
-    const enrollmentClassDetails = allDetails.find(
-      (details) => details._id === id
-    );
+    idList.forEach((id) => {
+      const enrollmentClassDetails = allDetails.find(
+        (details) => details._id === id
+      );
 
-    enrollmentClassesDetails = [
-      ...enrollmentClassesDetails,
-      enrollmentClassDetails,
-    ];
-  });
+      enrollmentClassesDetails = [
+        ...enrollmentClassesDetails,
+        enrollmentClassDetails,
+      ];
+    });
+  } else if (enrollmentClasses?.error) {
+    errorMessage = "Please login again!";
+  }
 
-  return enrollmentClassesDetails;
+  return [enrollmentClassesDetails, errorMessage];
 };
 
 export default useEnrollmentClassesDetails;

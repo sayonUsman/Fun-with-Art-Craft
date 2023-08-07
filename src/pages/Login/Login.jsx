@@ -26,16 +26,28 @@ const Login = () => {
 
     loginWithEmailAndPassword(user.email, user.password)
       .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Welcome Back.",
-          text: "Logged in has been done successfully.",
-          showConfirmButton: true,
-          timer: 2000,
-        });
+        fetch("https://fun-with-art-craft.vercel.app/jwt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userEmail: user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("accessToken", JSON.stringify(data.token));
+            navigate(from, { replace: true });
 
-        navigate(from, { replace: true });
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Welcome Back.",
+              text: "Logged in has been done successfully.",
+              showConfirmButton: true,
+              timer: 2000,
+            });
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -48,17 +60,29 @@ const Login = () => {
     setErrorMessage("");
 
     loginWithGoogle()
-      .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Welcome Back.",
-          text: "Logged in has been done successfully.",
-          showConfirmButton: true,
-          timer: 2000,
-        });
+      .then((data) => {
+        fetch("https://fun-with-art-craft.vercel.app/jwt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userEmail: data.user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("accessToken", JSON.stringify(data.token));
+            navigate(from, { replace: true });
 
-        navigate(from, { replace: true });
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Welcome Back.",
+              text: "Logged in has been done successfully.",
+              showConfirmButton: true,
+              timer: 2000,
+            });
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
       })
       .catch((error) => {
         setErrorMessage(error.message);

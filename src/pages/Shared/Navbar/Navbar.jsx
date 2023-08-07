@@ -26,6 +26,9 @@ const Navbar = () => {
 
     logOut()
       .then(() => {
+        localStorage.removeItem("accessToken");
+        navigate("/login");
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -33,7 +36,6 @@ const Navbar = () => {
           text: "Logged out has been done successfully.",
           showConfirmButton: true,
         });
-        navigate("/login");
       })
       .catch((error) => {
         setErrorMessage(error.message);

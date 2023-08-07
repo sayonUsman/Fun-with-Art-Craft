@@ -5,18 +5,25 @@ import { AuthContext } from "../../../authProvider/AuthProvider";
 const Payments_History = () => {
   const { loggedInUser } = useContext(AuthContext);
   const userDetails = loggedInUser();
+  let accessToken = localStorage.getItem("accessToken");
+  accessToken = JSON.parse(accessToken);
   const email = userDetails[1];
   const [paymentsDetails, setPaymentsDetails] = useState([]);
 
   useEffect(() => {
     if (email) {
       fetch(
-        `https://fun-with-art-craft.vercel.app/payments-history?email=${email}`
+        `https://fun-with-art-craft.vercel.app/payments-history?email=${email}`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((res) => res.json())
         .then((data) => setPaymentsDetails(data));
     }
-  }, [email]);
+  }, [email, accessToken]);
 
   return (
     <div className="min-h-screen mb-24">
@@ -37,19 +44,30 @@ const Payments_History = () => {
             </tr>
           </thead>
 
-          {paymentsDetails.map((details) => (
-            <tbody key={details._id}>
-              <tr>
-                <td>#</td>
-                <td>{details.date}</td>
-                <td>{details.time}</td>
-                <td>{details.transactionId}</td>
-                <td>${details.totalPrice}.00</td>
-              </tr>
-            </tbody>
-          ))}
+          {!paymentsDetails.error &&
+            paymentsDetails.map((details) => (
+              <tbody key={details._id}>
+                <tr>
+                  <td>#</td>
+                  <td>{details.date}</td>
+                  <td>{details.time}</td>
+                  <td>{details.transactionId}</td>
+                  <td>${details.totalPrice}.00</td>
+                </tr>
+              </tbody>
+            ))}
         </table>
       </div>
+
+      {paymentsDetails.error && (
+        <div className="toast toast-end">
+          <div className="alert alert-error">
+            <div>
+              <span>{"Please login again!"}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
